@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Creative Pro – Karyawan Digital untuk Personal Branding</title>
+<style>
+  :root{--bg:#f7f9fc;--card:#ffffff;--text:#1e293b;--muted:#64748b;--primary:#2563eb;--primary-d:#1d4ed8;--line:#e2e8f0;--red:#fef2f2;--red-t:#b91c1c;--green:#f0fdf4;--green-t:#15803d}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,-apple-system,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+  section{max-width:1040px;margin:0 auto;padding:56px 20px}
+  h2{font-size:1.7rem;text-align:center;margin-bottom:8px}
+  .sub{text-align:center;color:var(--muted);margin-bottom:32px}
+
+  /* HERO */
+  .hero{text-align:center;padding-top:72px}
+  .avatar{width:96px;height:96px;margin:0 auto 18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2.8rem;background:linear-gradient(135deg,#dbeafe,#e0e7ff);border:3px solid #fff;box-shadow:0 8px 24px rgba(37,99,235,.18)}
+  .badge{display:inline-block;padding:6px 16px;border-radius:999px;background:var(--green);color:var(--green-t);border:1px solid #bbf7d0;font-size:.9rem;font-weight:600;margin-bottom:18px}
+  .badge span{display:inline-block;animation:pulse 1.6s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  .hero h1{font-size:clamp(2.2rem,6vw,3.4rem);letter-spacing:-.02em;margin-bottom:12px}
+  .hero p{max-width:600px;margin:0 auto 26px;color:var(--muted);font-size:1.1rem}
+  .btn{display:inline-block;padding:14px 30px;border-radius:12px;background:var(--primary);color:#fff;font-weight:700;text-decoration:none;border:0;cursor:pointer;font-size:1rem;transition:.2s;box-shadow:0 6px 18px rgba(37,99,235,.3)}
+  .btn:hover{background:var(--primary-d);transform:translateY(-2px)}
+
+  /* PROBLEM & SOLUTION */
+  .compare{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .col{border-radius:16px;padding:26px;border:1px solid var(--line)}
+  .col.chaos{background:var(--red)}
+  .col.sol{background:var(--green)}
+  .col h3{margin-bottom:14px;font-size:1.2rem}
+  .chaos h3{color:var(--red-t)}
+  .sol h3{color:var(--green-t)}
+  .col ul{list-style:none}
+  .col li{padding:9px 0 9px 28px;position:relative;border-bottom:1px dashed rgba(0,0,0,.08)}
+  .col li:last-child{border:0}
+  .chaos li::before{content:"✖";position:absolute;left:0;color:var(--red-t)}
+  .sol li::before{content:"✔";position:absolute;left:0;color:var(--green-t)}
+
+  /* CAPABILITIES */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px;transition:.25s}
+  .card:hover{transform:translateY(-5px);box-shadow:0 14px 32px rgba(15,23,42,.08)}
+  .card .ic{font-size:2rem;margin-bottom:10px}
+  .card h3{margin-bottom:8px;font-size:1.1rem}
+  .card p{color:var(--muted);font-size:.95rem}
+  .tags{margin-top:12px;display:flex;flex-wrap:wrap;gap:6px}
+  .tags span{font-size:.75rem;padding:3px 10px;border-radius:999px;background:#eff6ff;color:var(--primary);font-weight:600}
+
+  /* SIMULATION */
+  .sim{max-width:640px;margin:0 auto;background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 12px 36px rgba(15,23,42,.08)}
+  .sim-head{padding:14px 20px;background:#f1f5f9;border-bottom:1px solid var(--line);font-weight:600;display:flex;align-items:center;gap:10px}
+  .dot{width:10px;height:10px;border-radius:50%;background:#22c55e}
+  .chat{height:340px;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:12px;background:#fcfdff}
+  .msg{max-width:85%;padding:11px 15px;border-radius:14px;font-size:.95rem;animation:in .3s ease}
+  .msg.user{align-self:flex-end;background:var(--primary);color:#fff;border-bottom-right-radius:4px}
+  .msg.bot{align-self:flex-start;background:#f1f5f9;border-bottom-left-radius:4px}
+  .msg.bot b{color:var(--primary-d)}
+  @keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .typing{display:flex;gap:5px;padding:14px 16px}
+  .typing i{width:7px;height:7px;border-radius:50%;background:#94a3b8;animation:bounce 1s infinite}
+  .typing i:nth-child(2){animation-delay:.15s}
+  .typing i:nth-child(3){animation-delay:.3s}
+  @keyframes bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
+  .hint{color:var(--muted);text-align:center;margin:auto;font-size:.95rem}
+  .scn{display:flex;gap:10px;padding:14px;border-top:1px solid var(--line);flex-wrap:wrap;background:#fff}
+  .scn button{flex:1;min-width:160px;padding:10px 12px;border-radius:10px;border:1px solid var(--primary);background:#fff;color:var(--primary);font-weight:600;cursor:pointer;font-size:.88rem;transition:.2s}
+  .scn button:hover:not(:disabled){background:var(--primary);color:#fff}
+  .scn button:disabled{opacity:.45;cursor:not-allowed}
+
+  /* FOOTER */
+  footer{text-align:center;background:#0f172a;color:#cbd5e1;padding:56px 20px 30px}
+  footer h2{color:#fff}
+  footer p{margin-bottom:22px}
+  .btn.big{font-size:1.15rem;padding:16px 38px;background:#22c55e;box-shadow:0 8px 24px rgba(34,197,94,.4)}
+  .btn.big:hover{background:#16a34a}
+  .credit{margin-top:36px;font-size:.85rem;color:#94a3b8}
+
+  @media(max-width:760px){.compare,.cards{grid-template-columns:1fr}section{padding:42px 16px}}
+</style>
+</head>
+<body>
+
+<!-- 1. HERO -->
+<section class="hero">
+  <div class="avatar">🎨</div>
+  <div class="badge"><span>🟢</span> Status: Active &amp; Ready 24/7</div>
+  <h1>Creative Pro</h1>
+  <p>Karyawan digital yang membantu membangun personal branding Anda di media sosial dan website.</p>
+  <a class="btn" href="#simulasi">Coba Simulasi ↓</a>
+</section>
+
+<!-- 2. PROBLEM & SOLUTION -->
+<section>
+  <h2>Dari Kacau ke Terarah</h2>
+  <p class="sub">Kenapa personal branding sering terasa melelahkan, dan bagaimana Creative Pro membantu.</p>
+  <div class="compare">
+    <div class="col chaos">
+      <h3>😵 The Chaos</h3>
+      <ul>
+        <li>Banyak ide konten, tetapi bingung memilih mana yang cocok dengan personal brand.</li>
+        <li>Belum yakin apa yang sebenarnya dibutuhkan audiens.</li>
+        <li>Produksi konten memakan waktu.</li>
+      </ul>
+    </div>
+    <div class="col sol">
+      <h3>✨ The Solution</h3>
+      <ul>
+        <li>Alternatif pilihan dan rekomendasi ide konten yang sesuai dan cocok dengan brand Anda.</li>
+        <li>Ide terpilih diubah menjadi konten siap pakai.</li>
+        <li>Terintegrasi dengan tools favorit, dengan Anda tetap memegang keputusan akhir.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 3. CORE CAPABILITIES -->
+<section>
+  <h2>Kemampuan Utama</h2>
+  <p class="sub">Tiga kekuatan yang membuat konten Anda konsisten dan efisien.</p>
+  <div class="cards">
+    <div class="card">
+      <div class="ic">💡</div>
+      <h3>Kurasi &amp; Rekomendasi Ide</h3>
+      <p>Menyaring banyak ide menjadi beberapa pilihan terbaik yang selaras dengan personal brand dan kebutuhan audiens.</p>
+      <div class="tags"><span>Personal Brand Fit</span><span>Audience Insight</span></div>
+    </div>
+    <div class="card">
+      <div class="ic">🎬</div>
+      <h3>Produksi Konten Siap Pakai</h3>
+      <p>Mengubah ide terpilih menjadi carousel, video, artikel website, dan post LinkedIn dalam hitungan menit.</p>
+      <div class="tags"><span>Canva (Carousel)</span><span>Google Flow (Video)</span><span>LinkedIn</span></div>
+    </div>
+    <div class="card">
+      <div class="ic">🤝</div>
+      <h3>Integrasi &amp; Human-in-the-Loop</h3>
+      <p>Jadwal tayang otomatis di Google Calendar, aset tersimpan rapi di Google Drive, dan setiap konten menunggu persetujuan Anda sebelum publish.</p>
+      <div class="tags"><span>Google Calendar</span><span>Google Drive</span><span>Human-in-the-Loop</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. INTERACTIVE SIMULATION -->
+<section id="simulasi">
+  <h2>Simulasi Interaktif</h2>
+  <p class="sub">Pilih satu skenario dan lihat Creative Pro bekerja.</p>
+  <div class="sim">
+    <div class="sim-head"><span class="dot"></span> Creative Pro · Online</div>
+    <div class="chat" id="chat"><div class="hint" id="hint">👇 Klik salah satu skenario di bawah untuk memulai</div></div>
+    <div class="scn">
+      <button data-s="ide">💡 Pilihkan ide konten</button>
+      <button data-s="produksi">🎬 Ubah jadi carousel</button>
+      <button data-s="jadwal">📅 Jadwalkan &amp; review</button>
+    </div>
+  </div>
+</section>
+
+<!-- 5. FOOTER & CTA -->
+<footer>
+  <h2>Siap Membangun Personal Brand Lebih Cepat?</h2>
+  <p>Hubungi saya dan mari diskusikan konten Anda berikutnya.</p>
+  <a class="btn big" href="https://wa.me/628151842642" target="_blank" rel="noopener">💬 Hubungi via WhatsApp</a>
+  <div class="credit">Built with AI · AI Builder Bootcamp Showcase</div>
+</footer>
+
+<script>
+  const scenarios = {
+    ide: {
+      user: "Saya punya 10 ide konten minggu ini, tapi bingung mana yang paling cocok dengan brand saya.",
+      bot: "Saya sudah saring dari 10 ide. <b>3 rekomendasi terbaik:</b><br>1️⃣ 5 Kesalahan Soft Skill di Tim HR<br>2️⃣ Cara Pakai AI untuk Training Lebih Efisien<br>3️⃣ Cerita di Balik Sesi Coaching<br><br>Ketiganya sesuai topik keahlian Anda dan sedang dicari audiens. Mau lanjut ke nomor berapa?"
+    },
+    produksi: {
+      user: "Ubah ide nomor 2 menjadi carousel Instagram.",
+      bot: "Siap! Carousel <b>7 slide</b> sudah dibuat di <b>Canva</b>:<br>• Slide 1: Hook judul<br>• Slide 2–6: Poin utama + contoh<br>• Slide 7: Ajakan diskusi<br><br>Caption dan 8 hashtag juga sudah saya siapkan. Saya juga bisa membuat versi video di <b>Google Flow</b> bila Anda mau."
+    },
+    jadwal: {
+      user: "Jadwalkan konten minggu ini dan tunjukkan dulu sebelum tayang.",
+      bot: "Draf sudah masuk <b>Google Calendar</b>:<br>📅 Selasa 09.00 – Carousel IG<br>📅 Kamis 12.00 – Post LinkedIn<br>📅 Sabtu 10.00 – Artikel website<br><br>✋ <b>Human-in-the-Loop:</b> tidak ada yang tayang sebelum Anda menekan <b>Setujui</b>. Aset tersimpan di Google Drive."
+    }
+  };
+
+  const chat = document.getElementById("chat");
+  const buttons = document.querySelectorAll(".scn button");
+  const wait = ms => new Promise(r => setTimeout(r, ms));
+
+  function addMsg(html, type) {
+    const el = document.createElement("div");
+    el.className = "msg " + type;
+    el.innerHTML = html;
+    chat.appendChild(el);
+    chat.scrollTop = chat.scrollHeight;
+    return el;
+  }
+
+  async function play(key) {
+    buttons.forEach(b => b.disabled = true);
+    chat.innerHTML = "";
+    const s = scenarios[key];
+    await wait(200);
+    addMsg(s.user, "user");
+    await wait(600);
+    const typing = addMsg('<i></i><i></i><i></i>', "bot typing");
+    await wait(1600);
+    typing.remove();
+    addMsg(s.bot, "bot");
+    buttons.forEach(b => b.disabled = false);
+  }
+
+  buttons.forEach(b => b.addEventListener("click", () => play(b.dataset.s)));
+</script>
+</body>
+</html>
