@@ -68,6 +68,16 @@
   .scn button:hover:not(:disabled){background:var(--primary);color:#fff}
   .scn button:disabled{opacity:.45;cursor:not-allowed}
 
+  /* DATA PLACES (TABEL SUPABASE) */
+  .tbl-wrap{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:0 8px 24px rgba(15,23,42,.06)}
+  #places{width:100%;border-collapse:collapse;font-size:.92rem}
+  #places th,#places td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
+  #places th{background:#f1f5f9;font-weight:700;position:sticky;top:0}
+  #places tbody tr:hover{background:#f8fafc}
+  #places tbody tr:last-child td{border-bottom:0}
+  #places a{color:var(--primary);font-weight:600;text-decoration:none}
+  #places a:hover{text-decoration:underline}
+
   /* FOOTER */
   footer{text-align:center;background:#0f172a;color:#cbd5e1;padding:56px 20px 30px}
   footer h2{color:#fff}
@@ -155,6 +165,20 @@
   </div>
 </section>
 
+<!-- DATA PLACES (SUPABASE) -->
+<section>
+  <h2>Data Places</h2>
+  <p class="sub">Data langsung dari database Supabase.</p>
+  <div class="tbl-wrap">
+    <table id="places">
+      <thead>
+        <tr><th>Nama</th><th>Kategori</th><th>Rating</th><th>Review</th><th>Kota</th><th>Telepon</th><th>Maps</th></tr>
+      </thead>
+      <tbody><tr><td colspan="7">Memuat data...</td></tr></tbody>
+    </table>
+  </div>
+</section>
+
 <!-- 5. FOOTER & CTA -->
 <footer>
   <h2>Siap Membangun Personal Brand Lebih Cepat?</h2>
@@ -207,6 +231,49 @@
   }
 
   buttons.forEach(b => b.addEventListener("click", () => play(b.dataset.s)));
+</script>
+
+<script>
+  const SUPABASE_URL = 'https://zaxrhzfsggljijukzcct.supabase.com'; //isi dengan SUPABASE_URL
+  const SUPABASE_KEY = 'sb_publishable_RpH7_3jnQu3iC1lsy66JmQ_IWsFrdTI'; // publishable key, BUKAN secret key
+
+  async function loadPlaces() {
+    const tbody = document.querySelector('#places tbody');
+    try {
+      const res = await fetch(
+        SUPABASE_URL + '/rest/v1/places?select=*&order=reviews_count.desc.nullslast&limit=100',
+        { headers: { apikey: SUPABASE_KEY } }
+      );
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const rows = await res.json();
+
+      tbody.replaceChildren();
+      for (const p of rows) {
+        const tr = document.createElement('tr');
+        for (const v of [p.title, p.category_name, p.total_score, p.reviews_count, p.city, p.phone]) {
+          const td = document.createElement('td');
+          td.textContent = v ?? '-';
+          tr.appendChild(td);
+        }
+        const td = document.createElement('td');
+        if (p.url && p.url.startsWith('https://')) {
+          const a = document.createElement('a');
+          a.href = p.url;
+          a.target = '_blank';
+          a.rel = 'noopener';
+          a.textContent = 'Buka';
+          td.appendChild(a);
+        }
+        tr.appendChild(td);
+        tbody.appendChild(tr);
+      }
+      if (!rows.length) tbody.innerHTML = '<tr><td colspan="7">Belum ada data.</td></tr>';
+    } catch (e) {
+      tbody.innerHTML = '<tr><td colspan="7">Gagal memuat data.</td></tr>';
+      console.error(e);
+    }
+  }
+  loadPlaces();
 </script>
 </body>
 </html>
